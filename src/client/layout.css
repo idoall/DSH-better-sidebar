@@ -23,9 +23,13 @@
  * every reserved edge tracks the pointer.
  */
 /* Current shells expose [data-dsh-frame]; rc.8-era shells expose the same
-   AppFrame only as the root slot's direct child. */
+   AppFrame only as the root slot's direct child. DSH-Mobile supplies its own
+   grid AppFrame as .dshm-shell, so include that contract here as well: the
+   fixed panel host then reserves actual layout space instead of covering the
+   conversation composer. */
 #root [data-dsh-frame],
-#root > [data-slot="root"] > div {
+#root > [data-slot="root"] > div,
+#root .dshm-shell {
   box-sizing: border-box;
   padding-right: var(--dsh-sidebar-width, 0px);
   transition: padding-right var(--ds-transition-duration-slow) var(--ds-ease-in-out);
@@ -75,6 +79,7 @@ body[data-dsh-sidebar-collapsed] [data-slot="conversation.session.header"] > hea
 
 body[data-dsh-sidebar-dragging] #root [data-dsh-frame],
 body[data-dsh-sidebar-dragging] #root > [data-slot="root"] > div,
+body[data-dsh-sidebar-dragging] #root .dshm-shell,
 body[data-dsh-sidebar-dragging] #root [data-dsh-frame] > [data-side="details"],
 body[data-dsh-sidebar-dragging] #root > [data-slot="root"] > div > [data-side="details"],
 body[data-dsh-sidebar-dragging] #root [data-dsh-center-col],
@@ -105,6 +110,7 @@ body[data-dsh-sidebar-dragging] #root [data-dsh-center-col],
 @media (prefers-reduced-motion: reduce) {
   #root [data-dsh-frame],
   #root > [data-slot="root"] > div,
+  #root .dshm-shell,
   #root [data-dsh-frame] > [data-side="details"],
   #root > [data-slot="root"] > div > [data-side="details"],
   #root [data-dsh-center-col] {

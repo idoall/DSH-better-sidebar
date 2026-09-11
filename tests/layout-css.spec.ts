@@ -18,6 +18,15 @@ describe('layout.css conversation column', () => {
     expect(css).not.toContain(':has(')
   })
 
+  it('reserves right-panel space in the dedicated DSH-Mobile shell', () => {
+    // DSH-Mobile replaces the stock AppFrame, while this plugin's panel host
+    // remains fixed at the viewport edge. Applying the existing padding push
+    // to its grid shell keeps the composer visible on remote connections.
+    expect(css).toContain('#root .dshm-shell')
+    expect(css).toMatch(/#root \.dshm-shell[\s\S]*padding-right:\s*var\(--dsh-sidebar-width, 0px\)/)
+    expect(css).toMatch(/body\[data-dsh-sidebar-dragging\] #root \.dshm-shell/)
+  })
+
   it('allows the center column to shrink and wrap long tokens', () => {
     expect(css).toMatch(/min-height:\s*0/)
     expect(css).toMatch(/overflow-wrap:\s*anywhere/)
